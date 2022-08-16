@@ -12,7 +12,7 @@ class SplashScreen extends StatelessWidget {
             Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
-      color: Colors.orange,
+      color: Colors.yellow,
       child: Center(
           child: SizedBox(
         width: MediaQuery.of(context).size.width / 5,

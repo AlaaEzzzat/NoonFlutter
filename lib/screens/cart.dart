@@ -104,7 +104,7 @@ class _CartState extends State<Cart> {
   // int productCount= 1;
   // String productID= "";
   DataBase db =
-      DataBase(colRef: FirebaseFirestore.instance.collection("products"));
+      DataBase(colRef: FirebaseFirestore.instance.collection("Products"));
   int cartCount = 0;
   double cartTotalPrice = 0;
   @override

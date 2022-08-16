@@ -258,7 +258,7 @@ class _CartProductState extends State<CartProduct> {
                                                         '-${productData['offer']}%',
                                                         style: TextStyle(
                                                             color:
-                                                                Colors.orange,
+                                                                Colors.yellow,
                                                             fontSize: MediaQuery.of(
                                                                             context)
                                                                         .size
@@ -301,11 +301,11 @@ class _CartProductState extends State<CartProduct> {
                                   children: [
                                     Text(
                                       "Remove",
-                                      style: TextStyle(color: Colors.orange),
+                                      style: TextStyle(color: Colors.yellow),
                                     ),
                                     Icon(
                                       Icons.delete_outline,
-                                      color: Colors.orange,
+                                      color: Colors.yellow,
                                       size: 14,
                                     )
                                   ],
@@ -359,7 +359,7 @@ class _CartProductState extends State<CartProduct> {
                                               Duration.zero,
                                         ));
                                   },
-                                  color: Colors.orange,
+                                  color: Colors.yellow,
                                   child: Text(
                                     "+",
                                     style: TextStyle(
@@ -384,7 +384,7 @@ class _CartProductState extends State<CartProduct> {
                                                     400
                                                 ? 20
                                                 : 13,
-                                        color: Colors.orange,
+                                        color: Colors.yellow,
                                         fontWeight: FontWeight.bold),
                                   ))),
                               Expanded(
@@ -426,7 +426,7 @@ class _CartProductState extends State<CartProduct> {
                                     }
                                   },
                                   color: productCount > 1
-                                      ? Colors.orange
+                                      ? Colors.yellow
                                       : Color.fromARGB(255, 228, 199, 155),
                                   child: Text(
                                     "-",

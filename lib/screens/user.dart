@@ -109,7 +109,7 @@ class _UserScreenState extends State<UserScreen> {
                   Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: MaterialButton(
-                      color: Colors.orange,
+                      color: Colors.yellow,
                       onPressed: () {
                         setState(() {
                           state = "register";
@@ -142,7 +142,7 @@ class _UserScreenState extends State<UserScreen> {
                                 hintText: "Your Name",
                                 border: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                        color: Colors.orange, width: 2))),
+                                        color: Colors.yellow, width: 2))),
                           )),
                       //email input
                       Container(
@@ -155,7 +155,7 @@ class _UserScreenState extends State<UserScreen> {
                                 hintText: "E-mail",
                                 border: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                        color: Colors.orange, width: 2))),
+                                        color: Colors.yellow, width: 2))),
                           )),
                       //password input
                       Container(
@@ -169,7 +169,7 @@ class _UserScreenState extends State<UserScreen> {
                                 hintText: "Password",
                                 border: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                        color: Colors.orange, width: 2))),
+                                        color: Colors.yellow, width: 2))),
                           )),
                       //confirm password input
                       Container(
@@ -183,13 +183,13 @@ class _UserScreenState extends State<UserScreen> {
                                 hintText: "Confirm Password",
                                 border: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                        color: Colors.orange, width: 2))),
+                                        color: Colors.yellow, width: 2))),
                           )),
                       //register button
                       Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: MaterialButton(
-                          color: Colors.orange,
+                          color: Colors.yellow,
                           onPressed: () async {
                             RegExp emailPattern =
                                 RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
@@ -254,7 +254,7 @@ class _UserScreenState extends State<UserScreen> {
                       Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: MaterialButton(
-                          color: Colors.orange,
+                          color: Colors.yellow,
                           onPressed: () {
                             setState(() {
                               state = "login";
@@ -313,12 +313,12 @@ class _AccountScreenState extends State<AccountScreen> {
             children: [
               Text(
                 'Welcome ${snapshot.data!.data()["username"]} !',
-                style: TextStyle(color: Colors.orange, fontSize: 20),
+                style: TextStyle(color: Colors.yellow, fontSize: 20),
               ),
               Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: MaterialButton(
-                    color: Colors.orange,
+                    color: Colors.yellow,
                     onPressed: () async {
                       FirebaseAuth.instance.signOut().then((value) =>
                           Fluttertoast.showToast(
