@@ -2,10 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:noon/db.dart';
-import 'package:noon/products.dart';
-import 'package:noon/home.dart';
-import 'package:noon/user.dart';
+import 'package:noon/DataBase.dart';
+import 'package:noon/screens/cart.dart';
+import 'package:noon/screens/categories.dart';
+import 'package:noon/screens/home.dart';
+import 'package:noon/screens/splashScreen.dart';
+import 'package:noon/screens/user.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,10 +32,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Noon',
       theme: ThemeData(
-        primarySwatch: Colors.yellow,
+        primarySwatch: Colors.orange,
       ),
       home: const MyHomePage(
-        title: 'Noon Home Page',
+        title: 'noon Demo Home Page',
         firstLoad: true,
         btmSelectedIndex: 0,
       ),
@@ -59,11 +61,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   Key key = UniqueKey();
   DataBase db =
-      DataBase(colRef: FirebaseFirestore.instance.collection("products"));
+      DataBase(colRef: FirebaseFirestore.instance.collection("Products"));
   bool insplashScreen = true;
   int btmSelectedIndex = 0;
-  List screens = [Home(), Products(), UserPage(), Home(), Home()];
-
+  List screens = [Home(), Categories(), Cart(), UserScreen(), Home()];
   @override
   void initState() {
     super.initState();
@@ -88,56 +89,59 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-        textDirection: TextDirection.ltr,
-        child: Scaffold(
-          backgroundColor: Color.fromRGBO(245, 245, 245, 1),
-          body: screens[btmSelectedIndex],
-          // Bottom Bar
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: btmSelectedIndex,
-            items: [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.format_list_bulleted_outlined),
-                  label: "Products"),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.shopping_cart_checkout), label: "Cart"),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.person_outline), label: "Login"),
-            ],
-            elevation: 2,
-            selectedItemColor: Colors.yellow,
-            unselectedItemColor: Color.fromARGB(255, 90, 88, 88),
-            showSelectedLabels: true,
-            showUnselectedLabels: true,
-            unselectedFontSize: 12,
-            selectedFontSize: 12,
-            type: BottomNavigationBarType.fixed,
-            onTap: (int index) {
-              setState(() {
-                btmSelectedIndex = index;
-              });
-            },
-          ),
-          appBar: AppBar(
-            elevation: 0,
-            title: const Text(
-              "Noon",
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-          floatingActionButton: FloatingActionButton(
-              child: Icon(
-                Icons.refresh,
-                color: Colors.white,
+    return insplashScreen
+        ? SplashScreen()
+        : Directionality(
+            textDirection: TextDirection.ltr,
+            child: Scaffold(
+              backgroundColor: Color.fromRGBO(245, 245, 245, 1),
+              body: screens[btmSelectedIndex],
+              // Bottom Bar
+              bottomNavigationBar: BottomNavigationBar(
+                currentIndex: btmSelectedIndex,
+                items: [
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.home), label: "Home"),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.format_list_bulleted_outlined),
+                      label: "Categories"),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.shopping_cart_checkout), label: "Cart"),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.person_outline), label: "Login"),
+                ],
+                elevation: 2,
+                selectedItemColor: Colors.yellow,
+                unselectedItemColor: Color.fromARGB(255, 90, 88, 88),
+                showSelectedLabels: true,
+                showUnselectedLabels: true,
+                unselectedFontSize: 12,
+                selectedFontSize: 12,
+                type: BottomNavigationBarType.fixed,
+                onTap: (int index) {
+                  setState(() {
+                    btmSelectedIndex = index;
+                  });
+                },
               ),
-              onPressed: () async {
-                setState(() {
-                  // Restart.restartApp();
-                  key = UniqueKey();
-                });
-              }),
-        ));
+              appBar: AppBar(
+                elevation: 0,
+                title: const Text(
+                  "Noon",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              floatingActionButton: FloatingActionButton(
+                  child: Icon(
+                    Icons.refresh,
+                    color: Colors.white,
+                  ),
+                  onPressed: () async {
+                    setState(() {
+                      // Restart.restartApp();
+                      key = UniqueKey();
+                    });
+                  }),
+            ));
   }
 }
