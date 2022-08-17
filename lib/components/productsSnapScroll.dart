@@ -31,22 +31,7 @@ class _ProductsSnapScrollState extends State<ProductsSnapScroll> {
   @override
   void initState() {
     super.initState();
-    // addloadingToprefs();
   }
-
-  // addloadingToprefs() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   widget.startWith == ""
-  //       ? await prefs.setBool("${widget.orderByField}_loading", true)
-  //       : await prefs.setBool("${widget.startWith}_loading", true);
-  // }
-
-  // setLoadingToDone() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   widget.startWith == ""
-  //       ? await prefs.setBool("${widget.orderByField}_loading", false)
-  //       : await prefs.setBool("${widget.startWith}_loading", false);
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -74,10 +59,6 @@ class _ProductsSnapScrollState extends State<ProductsSnapScroll> {
                     ))),
           );
         }
-        // if (snapshot.connectionState == ConnectionState.done) {
-        //   setLoadingToDone();
-        // }
-        // Map<String, dynamic> productData = snapshot.data!.data() as Map<String, dynamic>;
         final data = snapshot.requireData;
         return Container(
           color: Colors.white,
@@ -112,7 +93,6 @@ class Product extends StatelessWidget {
       closedShape: Border(),
       closedElevation: 0,
       openElevation: 0,
-      // transitionDuration: Duration(seconds: 5),
       openBuilder: (context, action) =>
           ProductDetails(productID: productData['id']),
       closedBuilder: (context, action) => Stack(
@@ -133,7 +113,7 @@ class Product extends StatelessWidget {
                           CachedNetworkImage(
                             fadeInDuration: Duration(milliseconds: 500),
                             fadeOutDuration: Duration(milliseconds: 100),
-                            imageUrl: productData['imgurl'],
+                            imageUrl: productData['thumbnail'],
                             placeholder: (context, url) => Shimmer.fromColors(
                                 baseColor: Colors.grey,
                                 highlightColor: (Colors.grey[100])!,
@@ -160,7 +140,7 @@ class Product extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Text(
-                                      productData["engname"],
+                                      productData["title"],
                                       style: TextStyle(
                                         overflow: TextOverflow.ellipsis,
                                         fontSize:
@@ -172,83 +152,24 @@ class Product extends StatelessWidget {
                                       maxLines: 1,
                                     ),
                                     FittedBox(
-                                      child: productData['offer'] == 0 ||
-                                              productData['offer'] == "0" ||
-                                              productData['offer'] == ""
-                                          //price witout offer
-                                          ? Text(
-                                              'EGP ${double.parse(productData['price']).toStringAsFixed(2)}',
-                                              style: TextStyle(
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  fontSize:
-                                                      MediaQuery.of(context)
-                                                                  .size
-                                                                  .width >
-                                                              300
-                                                          ? 16
-                                                          : 12,
-                                                  fontWeight: FontWeight.w500),
-                                              maxLines: 1,
-                                            )
-                                          //price after offer
-                                          : Text(
-                                              'EGP ${((double.parse(productData['price']) - (double.parse(productData['price']) * (double.parse(productData['offer']) / 100)))).toStringAsFixed(2)}',
-                                              style: TextStyle(
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  fontSize:
-                                                      MediaQuery.of(context)
-                                                                  .size
-                                                                  .width >
-                                                              300
-                                                          ? 16
-                                                          : 12,
-                                                  fontWeight: FontWeight.w500),
-                                              maxLines: 1,
-                                            ),
-                                    ),
+                                        child: Text(
+                                      'EGP ${productData['price'].toStringAsFixed(2)}',
+                                      style: TextStyle(
+                                          overflow: TextOverflow.ellipsis,
+                                          fontSize: MediaQuery.of(context)
+                                                      .size
+                                                      .width >
+                                                  300
+                                              ? 16
+                                              : 12,
+                                          fontWeight: FontWeight.w500),
+                                      maxLines: 1,
+                                    )),
                                   ]))
                         ],
                       ),
                     ),
-                  ),
-                  //offer badge
-                  productData['offer'] == 0 ||
-                          productData['offer'] == "0" ||
-                          productData['offer'] == ""
-                      ? const Text("")
-                      : Padding(
-                          padding: MediaQuery.of(context).size.width > 300
-                              ? EdgeInsetsDirectional.only(start: 10, top: 10)
-                              : EdgeInsetsDirectional.only(start: 4, top: 4),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width > 300
-                                ? 42
-                                : 25,
-                            height: MediaQuery.of(context).size.width > 300
-                                ? 30
-                                : 15,
-                            padding: MediaQuery.of(context).size.width > 300
-                                ? EdgeInsets.all(4)
-                                : EdgeInsets.all(1),
-                            decoration: const BoxDecoration(
-                                color: Color.fromRGBO(254, 239, 222, 1),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(3))),
-                            child: Center(
-                              child: Text(
-                                '-${productData['offer']}%',
-                                style: TextStyle(
-                                    color: Colors.orange,
-                                    fontSize:
-                                        MediaQuery.of(context).size.width > 300
-                                            ? 14
-                                            : 8),
-                              ),
-                            ),
-                          ),
-                        )
+                  )
                 ],
               ),
             ),
@@ -260,14 +181,6 @@ class Product extends StatelessWidget {
             child: InkWell(
               onTap: () {
                 action();
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) => ProductDetails(
-                //               productID: productData['id'],
-                //             )));
-                // print(await prefs.getString("PRDID"));
-                // print(" card $index Tappped!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
               },
             ),
           ))
